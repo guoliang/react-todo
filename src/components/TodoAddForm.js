@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 
 import Button from "react-bootstrap/Button";
@@ -7,6 +7,7 @@ import Form from "react-bootstrap/Form";
 const TodoAddForm = ({ allTodos, addTodo }) => {
 	const InputFieldID = "todoTitleFieldId";
 	const TextareaID = "todoTextareaId";
+	const formRef = React.createRef();
 
 	const onSubmitForm = ($event) => {
 		$event.preventDefault();
@@ -22,10 +23,20 @@ const TodoAddForm = ({ allTodos, addTodo }) => {
 		addTodo([newTodo, ...allTodos]);
 	};
 
+	useEffect(() => {
+		console.info("Effects");
+		const activeTodo = allTodos.find((todo) => todo.active);
+		if (activeTodo) {
+			const formElements = formRef.current.elements;
+			formElements.namedItem(InputFieldID).value = activeTodo.title;
+			formElements.namedItem(TextareaID).value = activeTodo.todo;
+		}
+	});
+
 	return (
 		<>
 			<h2>Add new</h2>
-			<Form onSubmit={onSubmitForm}>
+			<Form onSubmit={onSubmitForm} ref={formRef}>
 				<Form.Group controlId={InputFieldID}>
 					<Form.Label>Title</Form.Label>
 					<Form.Control type="text" />
