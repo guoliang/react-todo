@@ -7,11 +7,14 @@ import Row from "react-bootstrap/Row";
 
 const TodoItem = ({ allTodos, removeTodo, title, id }) => {
 	const onSelect = () => {
-		console.info("onSelect");
+		const newSelectedTodo = allTodos.map((todo) => {
+			todo.active = todo.id === id;
+			return todo;
+		});
+		removeTodo(newSelectedTodo);
 	};
 
 	const onRemove = () => {
-		console.info("onRemove");
 		const filteredTodos = allTodos.filter((todo) => todo.id !== id);
 		removeTodo(filteredTodos);
 	};
