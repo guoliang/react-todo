@@ -29,7 +29,7 @@ function App() {
 		<Container>
 			<h1>Todo</h1>
 			<TodoAddForm allTodos={todos} addTodo={setTodo} />
-			<h2>Todo Items</h2>
+			<h2>Items</h2>
 			<ListGroup>{todoList}</ListGroup>
 		</Container>
 	);

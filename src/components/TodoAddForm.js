@@ -31,7 +31,7 @@ const TodoAddForm = ({ allTodos, addTodo }) => {
 					<Form.Control type="text" />
 				</Form.Group>
 				<Form.Group controlId={TextareaID}>
-					<Form.Label>Todo</Form.Label>
+					<Form.Label>Task</Form.Label>
 					<Form.Control as="textarea" rows={5} />
 				</Form.Group>
 				<Button variant="primary" type="submit">
