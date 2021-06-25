@@ -5,18 +5,18 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
-const TodoItem = ({ allTodos, removeTodo, title, id }) => {
+const TodoItem = ({ allTodos, updateTodos, title, id }) => {
 	const onSelect = () => {
 		const newSelectedTodo = allTodos.map((todo) => {
 			todo.active = todo.id === id;
 			return todo;
 		});
-		removeTodo(newSelectedTodo);
+		updateTodos(newSelectedTodo);
 	};
 
 	const onRemove = () => {
 		const filteredTodos = allTodos.filter((todo) => todo.id !== id);
-		removeTodo(filteredTodos);
+		updateTodos(filteredTodos);
 	};
 
 	return (
@@ -35,7 +35,7 @@ const TodoItem = ({ allTodos, removeTodo, title, id }) => {
 
 TodoItem.propTypes = {
 	allTodos: PropTypes.array.isRequired,
-	removeTodo: PropTypes.func.isRequired,
+	updateTodos: PropTypes.func.isRequired,
 	title: PropTypes.string.isRequired,
 	id: PropTypes.number.isRequired,
 };

@@ -21,7 +21,7 @@ function App() {
 
 	const todoList = todos.map((todo) => (
 		<ListGroup.Item as="li" key={todo.id} id={todo.id} active={todo.active}>
-			<TodoItem allTodos={todos} removeTodo={setTodo} id={todo.id} title={todo.title} />
+			<TodoItem allTodos={todos} updateTodos={setTodo} id={todo.id} title={todo.title} />
 		</ListGroup.Item>
 	));
 
