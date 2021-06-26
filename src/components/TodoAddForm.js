@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 import Button from "react-bootstrap/Button";
@@ -23,15 +23,10 @@ const TodoAddForm = ({ allTodos, addTodo }) => {
 		addTodo([newTodo, ...allTodos]);
 	};
 
-	useEffect(() => {
-		console.info("Effects");
-		const activeTodo = allTodos.find((todo) => todo.active);
-		if (activeTodo) {
-			const formElements = formRef.current.elements;
-			formElements.namedItem(InputFieldID).value = activeTodo.title;
-			formElements.namedItem(TextareaID).value = activeTodo.todo;
-		}
-	});
+	const getTodoValue = (key) => {
+		const selectedTodo = allTodos.find((todo) => todo.active);
+		return selectedTodo ? selectedTodo[key] : "";
+	};
 
 	return (
 		<>
@@ -39,11 +34,11 @@ const TodoAddForm = ({ allTodos, addTodo }) => {
 			<Form onSubmit={onSubmitForm} ref={formRef}>
 				<Form.Group controlId={InputFieldID}>
 					<Form.Label>Title</Form.Label>
-					<Form.Control type="text" />
+					<Form.Control type="text" value={getTodoValue("title")} />
 				</Form.Group>
 				<Form.Group controlId={TextareaID}>
 					<Form.Label>Task</Form.Label>
-					<Form.Control as="textarea" rows={5} />
+					<Form.Control as="textarea" rows={5} value={getTodoValue("todo")} />
 				</Form.Group>
 				<Button variant="primary" type="submit">
 					Submit
