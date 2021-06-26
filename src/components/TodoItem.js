@@ -4,19 +4,25 @@ import PropTypes from "prop-types";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import { UseTodoContext } from "../contexts/TodoProvider";
+// import TodoContext from "../contexts/TodoProvider";
 
-const TodoItem = ({ allTodos, updateTodos, title, id }) => {
+const TodoItem = ({ id, title }) => {
+	const { todos, setTodo } = UseTodoContext();
+
 	const onSelect = () => {
-		const newSelectedTodo = allTodos.map((todo) => {
+		const newSelectedTodo = todos.map((todo) => {
 			todo.active = todo.id === id;
 			return todo;
 		});
-		updateTodos(newSelectedTodo);
+		setTodo(newSelectedTodo);
+
+		console.info(todos);
 	};
 
 	const onRemove = () => {
-		const filteredTodos = allTodos.filter((todo) => todo.id !== id);
-		updateTodos(filteredTodos);
+		const filteredTodos = todos.filter((todo) => todo.id !== id);
+		setTodo(filteredTodos);
 	};
 
 	return (
@@ -34,8 +40,6 @@ const TodoItem = ({ allTodos, updateTodos, title, id }) => {
 };
 
 TodoItem.propTypes = {
-	allTodos: PropTypes.array.isRequired,
-	updateTodos: PropTypes.func.isRequired,
 	title: PropTypes.string.isRequired,
 	id: PropTypes.number.isRequired,
 };

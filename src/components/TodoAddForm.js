@@ -1,10 +1,11 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { UseTodoContext } from "../contexts/TodoProvider";
 
-const TodoAddForm = ({ allTodos, addTodo }) => {
+const TodoAddForm = () => {
+	const { todos, setTodo } = UseTodoContext();
 	const InputFieldID = "todoTitleFieldId";
 	const TextareaID = "todoTextareaId";
 	const formRef = React.createRef();
@@ -20,11 +21,11 @@ const TodoAddForm = ({ allTodos, addTodo }) => {
 			todo: todoElements.namedItem(TextareaID).value,
 		};
 
-		addTodo([newTodo, ...allTodos]);
+		setTodo([newTodo, ...todos]);
 	};
 
 	const getTodoValue = (key) => {
-		const selectedTodo = allTodos.find((todo) => todo.active);
+		const selectedTodo = todos.find((todo) => todo.active);
 		return selectedTodo ? selectedTodo[key] : "";
 	};
 
@@ -34,11 +35,11 @@ const TodoAddForm = ({ allTodos, addTodo }) => {
 			<Form onSubmit={onSubmitForm} ref={formRef}>
 				<Form.Group controlId={InputFieldID}>
 					<Form.Label>Title</Form.Label>
-					<Form.Control type="text" value={getTodoValue("title")} />
+					<Form.Control type="text" defaultValue={getTodoValue("title")} />
 				</Form.Group>
 				<Form.Group controlId={TextareaID}>
 					<Form.Label>Task</Form.Label>
-					<Form.Control as="textarea" rows={5} value={getTodoValue("todo")} />
+					<Form.Control as="textarea" rows={5} defaultValue={getTodoValue("todo")} />
 				</Form.Group>
 				<Button variant="primary" type="submit">
 					Submit
@@ -48,8 +49,4 @@ const TodoAddForm = ({ allTodos, addTodo }) => {
 	);
 };
 
-TodoAddForm.propTypes = {
-	allTodos: PropTypes.array.isRequired,
-	addTodo: PropTypes.func.isRequired,
-};
 export default TodoAddForm;

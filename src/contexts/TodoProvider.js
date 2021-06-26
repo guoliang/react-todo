@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 import PropTypes from "prop-types";
 
 const TodoContext = createContext([]);
@@ -14,4 +14,5 @@ TodoProvider.propTypes = {
 	initialTodo: PropTypes.array,
 };
 
+export const UseTodoContext = () => useContext(TodoContext);
 export default TodoProvider;

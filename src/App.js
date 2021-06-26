@@ -1,42 +1,33 @@
-import React, { useState } from "react";
+import React from "react";
 
 import Container from "react-bootstrap/Container";
-import ListGroup from "react-bootstrap/ListGroup";
 
+import ListTodos from "./components/ListTodos";
 import TodoAddForm from "./components/TodoAddForm";
-import TodoItem from "./components/TodoItem";
-
 import TodoProvider from "./contexts/TodoProvider";
 
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-function App() {
-	const [todos, setTodo] = useState([
+const App = () => {
+	const initialTodos = [
 		{
-			id: 0,
+			id: Math.random(),
 			title: "Hello",
 			todo: "World",
 			active: false,
 		},
-	]);
-
-	const todoList = todos.map((todo) => (
-		<ListGroup.Item as="li" key={todo.id} id={todo.id} active={todo.active}>
-			<TodoItem allTodos={todos} updateTodos={setTodo} id={todo.id} title={todo.title} />
-		</ListGroup.Item>
-	));
+	];
 
 	return (
-		<TodoProvider initialTodo={[]}>
+		<TodoProvider initialTodo={initialTodos}>
 			<Container>
 				<h1>Todo</h1>
-				<TodoAddForm allTodos={todos} addTodo={setTodo} />
-				<h2>Items</h2>
-				<ListGroup>{todoList}</ListGroup>
+				<TodoAddForm />
+				<ListTodos />
 			</Container>
 		</TodoProvider>
 	);
-}
+};
 
 export default App;
