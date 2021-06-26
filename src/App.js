@@ -6,6 +6,8 @@ import ListGroup from "react-bootstrap/ListGroup";
 import TodoAddForm from "./components/TodoAddForm";
 import TodoItem from "./components/TodoItem";
 
+import TodoProvider from "./contexts/TodoProvider";
+
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -26,12 +28,14 @@ function App() {
 	));
 
 	return (
-		<Container>
-			<h1>Todo</h1>
-			<TodoAddForm allTodos={todos} addTodo={setTodo} />
-			<h2>Items</h2>
-			<ListGroup>{todoList}</ListGroup>
-		</Container>
+		<TodoProvider initialTodo={[]}>
+			<Container>
+				<h1>Todo</h1>
+				<TodoAddForm allTodos={todos} addTodo={setTodo} />
+				<h2>Items</h2>
+				<ListGroup>{todoList}</ListGroup>
+			</Container>
+		</TodoProvider>
 	);
 }
 
